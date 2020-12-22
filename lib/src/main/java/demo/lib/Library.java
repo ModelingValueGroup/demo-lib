@@ -4,7 +4,7 @@
 package demo.lib;
 
 public class Library {
-    public boolean someLibraryMethod() {
+    public boolean master() {
         return true;
     }
 }
