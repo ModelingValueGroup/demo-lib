@@ -9,6 +9,8 @@ val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 val GITHUB_REF: String = System.getenv("GITHUB_REF") ?: "local"
 
+println("GITHUB_REF=$GITHUB_REF")
+
 group = "demo-lib"
 version = "2.0.0"
 
