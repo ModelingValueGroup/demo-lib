@@ -20,8 +20,4 @@ jobs:
           java-version: 11
 
       - name: "build jar"
-        run: ./gradlew build
-
-      - name: "if master: publish (jar/pom/sources/javadoc)"
-        if  : github.ref == 'refs/heads/master'
         run : ./gradlew publish
