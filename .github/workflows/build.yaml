@@ -25,4 +25,4 @@ jobs:
 
       - name: "if master: publish (jar/pom/sources/javadoc)"
         if  : github.ref == 'refs/heads/master'
-        run : ./gradlew publish mvgTagger
+        run : ./gradlew publish
