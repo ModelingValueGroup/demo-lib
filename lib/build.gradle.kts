@@ -8,7 +8,7 @@
 val VERSION = "3.0.0"
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-val GITHUB_REF: String = System.getenv("GITHUB_REF") ?: "local"
+val GITHUB_REF: String = File(".git/HEAD").readLines()[0].replaceFirst(Regex("^ref: "), "")
 val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
 val isLocal: Boolean = !CI
 val snapshotVersion: String = "0."+String.format("%08x", GITHUB_REF.hashCode())+"-SNAPSHOT"
@@ -17,6 +17,9 @@ println("snapshotVersion=$snapshotVersion")
 
 group = "demo-lib"
 version = if (isMaster && !isLocal) VERSION else snapshotVersion
+
+println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
+println("@@@@@@@@@@@        version=$version")
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
