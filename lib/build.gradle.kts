@@ -5,14 +5,18 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
+val VERSION = "2.0.0"
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 val GITHUB_REF: String = System.getenv("GITHUB_REF") ?: "local"
 val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
 val isLocal: Boolean = !CI
+val snapshotVersion: String = "0."+String.format("%08x", GITHUB_REF.hashCode())+"-SNAPSHOT"
+
+println("snapshotVersion=$snapshotVersion")
 
 group = "demo-lib"
-version = "2.0.0"
+version = if (isMaster && !isLocal) VERSION else snapshotVersion
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
@@ -44,9 +48,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.compileJava {
-    options.javaModuleVersion.set(provider { "2.0.0" })
-}
 java {
     withJavadocJar()
     withSourcesJar()
