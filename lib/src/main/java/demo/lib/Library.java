@@ -7,8 +7,8 @@ public class Library {
     public boolean someLibraryMethod() {
         return true;
     }
-    public boolean experiment() {
-        System.out.println("this is an experiment!");
+    public boolean experiment2() {
+        System.out.println("this is an experiment2!");
         return true;
     }
 }
