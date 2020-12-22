@@ -7,7 +7,7 @@ public class Library {
     public boolean someLibraryMethod() {
         return true;
     }
-    public boolean plugh() {
+    public boolean plughplugh() {
         return true;
     }
 }
