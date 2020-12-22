@@ -57,8 +57,11 @@ publishing {
         }
     }
     repositories {
-        if (CI) {
-            if (GITHUB_REF.equals("master")) {
+        when {
+            !CI ->{
+                mavenLocal()
+            }
+            GITHUB_REF.equals("master") -> {
                 maven {
                     url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
                     credentials {
@@ -66,11 +69,10 @@ publishing {
                         password = TOKEN
                     }
                 }
-            } else {
+            }
+            else -> {
                 println("OTHER BRANCH... TODO")
             }
-        } else {
-            mavenLocal()
         }
     }
 }
