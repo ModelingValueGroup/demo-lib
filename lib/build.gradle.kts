@@ -74,7 +74,13 @@ publishing {
                 }
             }
             else -> {
-                println("OTHER BRANCH... TODO")
+                maven {
+                    url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
+                    credentials {
+                        username = "" // can be anything but plugin requires it
+                        password = TOKEN
+                    }
+                }
             }
         }
     }
