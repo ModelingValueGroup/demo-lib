@@ -58,7 +58,7 @@ publishing {
     }
     repositories {
         when {
-            !CI ->{
+            !CI -> {
                 mavenLocal()
             }
             GITHUB_REF.equals("master") -> {
