@@ -8,6 +8,9 @@
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val ALLREP_TOKEN: String = System.getenv("ALLREP_TOKEN") ?: "DRY"
 
+group = "demo-lib"
+version = "1.0.0"
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
@@ -38,6 +41,9 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.compileJava {
+    options.javaModuleVersion.set(provider { "1.0.0" })
+}
 java {
     withJavadocJar()
     withSourcesJar()
