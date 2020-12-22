@@ -6,7 +6,7 @@
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
 val CI: Boolean = "true".equals(System.getenv("CI"))
-val ALLREP_TOKEN: String = System.getenv("ALLREP_TOKEN") ?: "DRY"
+val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 
 group = "demo-lib"
 version = "1.0.0"
@@ -57,11 +57,11 @@ publishing {
             url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
             credentials {
                 username = "" // can be anything but plugin requires it
-                password = ALLREP_TOKEN
+                password = TOKEN
             }
         }
     }
-    if (CI && ALLREP_TOKEN != "") {
+    if (CI && TOKEN != "") {
         println("INFO: publishing enabled")
         publications {
             create<MavenPublication>("gpr") {
@@ -69,6 +69,6 @@ publishing {
             }
         }
     } else {
-        println("INFO: publishing disabled because this is not CI (use 'CI=true' and 'ALLREP_TOKEN=xxxxx' in the environment to change)")
+        println("INFO: publishing disabled because this is not CI (use 'CI=true' and 'TOKEN=xxxxx' in the environment to change)")
     }
 }
