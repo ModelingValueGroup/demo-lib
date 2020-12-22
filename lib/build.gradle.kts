@@ -7,6 +7,7 @@
  */
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
+val GITHUB_REF: String = System.getenv("GITHUB_REF") ?: "local"
 
 group = "demo-lib"
 version = "2.0.0"
@@ -50,10 +51,18 @@ java {
 }
 
 publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            from(components["java"])
+        }
+    }
     repositories {
+        when {
+            !CI -> {
+                mavenLocal()
+            }
+            GITHUB_REF.equals("master") -> {
         maven {
-            name = "GitHubPackages"
-
             url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
             credentials {
                 username = "" // can be anything but plugin requires it
@@ -61,14 +70,9 @@ publishing {
             }
         }
     }
-    if (CI && TOKEN != "") {
-        println("INFO: publishing enabled")
-        publications {
-            create<MavenPublication>("gpr") {
-                from(components["java"])
+            else -> {
+                println("OTHER BRANCH... TODO")
             }
         }
-    } else {
-        println("INFO: publishing disabled because this is not CI (use 'CI=true' and 'TOKEN=xxxxx' in the environment to change)")
     }
 }
