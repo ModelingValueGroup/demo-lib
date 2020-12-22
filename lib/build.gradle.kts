@@ -5,10 +5,13 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
+val CI: Boolean = "true".equals(System.getenv("CI"))
+val ALLREP_TOKEN: String = System.getenv("ALLREP_TOKEN") ?: "DRY"
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    `maven-publish`
 }
 
 repositories {
@@ -33,4 +36,33 @@ dependencies {
 tasks.test {
     // Use junit platform for unit tests.
     useJUnitPlatform()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+
+            url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
+            credentials {
+                username = "" // can be anything but plugin requires it
+                password = ALLREP_TOKEN
+            }
+        }
+    }
+    if (CI && ALLREP_TOKEN != "") {
+        println("INFO: publishing enabled")
+        publications {
+            create<MavenPublication>("gpr") {
+                from(components["java"])
+            }
+        }
+    } else {
+        println("INFO: publishing disabled because this is not CI (use 'CI=true' and 'ALLREP_TOKEN=xxxxx' in the environment to change)")
+    }
 }
