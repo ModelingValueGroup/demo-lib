@@ -9,7 +9,7 @@ val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 
 group = "demo-lib"
-version = "1.0.0"
+version = "2.0.0"
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
@@ -42,7 +42,7 @@ tasks.test {
 }
 
 tasks.compileJava {
-    options.javaModuleVersion.set(provider { "1.0.0" })
+    options.javaModuleVersion.set(provider { "2.0.0" })
 }
 java {
     withJavadocJar()
