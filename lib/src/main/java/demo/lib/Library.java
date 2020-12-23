@@ -4,11 +4,8 @@
 package demo.lib;
 
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
-    }
-    public boolean exper() {
-        System.out.println("this is an exper!");
+    public boolean experiment() {
+        System.out.println("library.experiment() called");
         return true;
     }
 }
