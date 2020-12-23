@@ -18,7 +18,7 @@ var packageRepo: String
 if (CI && isMaster) {
     group = GROUP
     version = VERSION
-    packageRepo = "COMPANY/$GROUP"
+    packageRepo = "$COMPANY/$GROUP"
 } else {
     group = GROUP+".snapshot"
     version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
