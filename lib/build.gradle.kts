@@ -5,21 +5,30 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
-val VERSION = "2.0.0"
+val VERSION: String by project
+val GROUP: String by project
+val COMPANY: String by project
+
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 val GITHUB_REF: String = File(".git/HEAD").readLines()[0].replaceFirst(Regex("^ref: "), "")
 val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
-val isLocal: Boolean = !CI
-val snapshotVersion: String = "0."+String.format("%08x", GITHUB_REF.hashCode())+"-SNAPSHOT"
+var packageRepo: String
 
-println("snapshotVersion=$snapshotVersion")
-
-group = if (isMaster && !isLocal) "demo-lib" else "SNAPSHOT-demo-lib"
-version = if (isMaster && !isLocal) VERSION else snapshotVersion
+if (CI && isMaster) {
+    group = GROUP
+    version = VERSION
+    packageRepo = "COMPANY/$GROUP"
+} else {
+    group = GROUP+".snapshot"
+    version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
+    packageRepo = "$COMPANY/tmp-snapshots"
+}
 
 println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
 println("@@@@@@@@@@@        version=$version")
+println("@@@@@@@@@@@          group=$group")
+println("@@@@@@@@@@@    packageRepo=$packageRepo")
 
 plugins {
     // Apply the java-library plugin for API and implementation separation.
@@ -63,28 +72,16 @@ publishing {
         }
     }
     repositories {
-        when {
-            !CI -> {
-                mavenLocal()
-            }
-            isMaster -> {
-                maven {
-                    url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
-                    credentials {
-                        username = "" // can be anything but plugin requires it
-                        password = TOKEN
-                    }
+        if (CI) {
+            maven {
+                url = uri("https://maven.pkg.github.com/$packageRepo")
+                credentials {
+                    username = "" // can be anything but plugin requires it
+                    password = TOKEN
                 }
             }
-            else -> {
-                maven {
-                    url = uri("https://maven.pkg.github.com/ModelingValueGroup/tmp-snapshots")
-                    credentials {
-                        username = "" // can be anything but plugin requires it
-                        password = TOKEN
-                    }
-                }
-            }
+        } else {
+            mavenLocal()
         }
     }
 }
