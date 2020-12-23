@@ -15,7 +15,7 @@ val snapshotVersion: String = "0."+String.format("%08x", GITHUB_REF.hashCode())+
 
 println("snapshotVersion=$snapshotVersion")
 
-group = "demo-lib"
+group = if (isMaster && !isLocal) "demo-lib" else "SNAPSHOT-demo-lib"
 version = if (isMaster && !isLocal) VERSION else snapshotVersion
 
 println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
