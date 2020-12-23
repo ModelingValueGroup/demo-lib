@@ -20,7 +20,7 @@ if (CI && isMaster) {
     version = VERSION
     packageRepo = "$COMPANY/$GROUP"
 } else {
-    group = GROUP+".snapshot"
+    group = "snapshots." + GROUP
     version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
     packageRepo = "$COMPANY/tmp-snapshots"
 }
