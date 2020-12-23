@@ -4,10 +4,8 @@
 package demo.lib;
 
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
-    }
-    public boolean plughplugh() {
+    public boolean plugh() {
+        System.out.println("library.plugh() called");
         return true;
     }
 }
