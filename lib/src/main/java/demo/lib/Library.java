@@ -5,6 +5,7 @@ package demo.lib;
 
 public class Library {
     public boolean master() {
+        System.out.println("library.master() called");
         return true;
     }
 }
