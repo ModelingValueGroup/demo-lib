@@ -78,7 +78,7 @@ publishing {
             }
             else -> {
                 maven {
-                    url = uri("https://maven.pkg.github.com/ModelingValueGroup/demo-lib")
+                    url = uri("https://maven.pkg.github.com/ModelingValueGroup/tmp-snapshots")
                     credentials {
                         username = "" // can be anything but plugin requires it
                         password = TOKEN
