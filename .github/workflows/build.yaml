@@ -8,6 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
+      ALLREP_TOKEN: "${{secrets.ALLREP_TOKEN}}"
       TOKEN: "${{secrets.ALLREP_TOKEN}}"
       CI: "true"
     steps:
@@ -19,5 +20,5 @@ jobs:
         with:
           java-version: 11
 
-      - name: "build jar"
-        run: ./gradlew build publish
+      - name: "publish jar"
+        run: ./gradlew --info
