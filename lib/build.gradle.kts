@@ -45,7 +45,7 @@ plugins {
     id("org.modelingvalue.gradle.corrector") version "0.3.30"
 }
 
-rootProject.defaultTasks("clean", "build", "publish")
+rootProject.defaultTasks("mvgCorrector","clean", "build", "publish", "mvgTagger")
 
 repositories {
     // Use JCenter for resolving dependencies.
