@@ -11,7 +11,7 @@ val COMPANY: String by project
 
 val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-val GITHUB_REF: String = File(".git/HEAD").readLines()[0].replaceFirst(Regex("^ref: "), "")
+val GITHUB_REF: String = rootProject.projectDir.toPath().resolve(".git/HEAD").toFile().readLines()[0].replaceFirst(Regex("^ref: "), "")
 val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
 var packageRepo: String
 
