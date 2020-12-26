@@ -20,4 +20,4 @@ jobs:
           java-version: 11
 
       - name: "build jar"
-        run: ./gradlew build publish
+        run: ./gradlew
