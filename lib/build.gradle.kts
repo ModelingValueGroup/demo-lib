@@ -26,11 +26,11 @@ var packageRepo: String
 if (CI && isMaster) {
     group = GROUP
     version = VERSION
-    packageRepo = "$COMPANY/$GROUP"
+    packageRepo = "$COMPANY/packages"
 } else {
     group = "snapshots." + GROUP
     version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
-    packageRepo = "$COMPANY/tmp-snapshots"
+    packageRepo = "$COMPANY/packages-snapshots"
 }
 
 println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
@@ -41,7 +41,7 @@ println("@@@@@@@@@@@    packageRepo=$packageRepo")
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.30"
+    id("org.modelingvalue.gradle.corrector") version "0.3.33"
 }
 
 rootProject.defaultTasks("clean", "build", "publish", "mvgTagger")
