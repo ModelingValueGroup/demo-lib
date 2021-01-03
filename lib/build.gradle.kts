@@ -41,7 +41,7 @@ println("@@@@@@@@@@@    packageRepo=$packageRepo")
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.32"
+    id("org.modelingvalue.gradle.corrector") version "0.3.33"
 }
 
 rootProject.defaultTasks("clean", "build", "publish", "mvgTagger")
