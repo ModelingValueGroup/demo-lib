@@ -15,7 +15,6 @@
 
 val VERSION: String by project
 val GROUP: String by project
-val COMPANY: String by project
 
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
 
@@ -25,10 +24,10 @@ version = VERSION
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.35"
+    id("org.modelingvalue.gradle.corrector") version "0.3.38"
 }
 
-rootProject.defaultTasks("clean", "build", "publish", "mvgTagger")
+rootProject.defaultTasks("clean", "publish")
 
 repositories {
     jcenter()
@@ -54,15 +53,6 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components["java"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri("https://maven.pkg.github.com/$COMPANY/packages")
-            credentials {
-                username = "" // can be anything but plugin requires it
-                password = TOKEN
-            }
         }
     }
 }
