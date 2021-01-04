@@ -24,7 +24,7 @@ version = VERSION
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.40"
+    id("org.modelingvalue.gradle.corrector") version "0.3.42"
 }
 
 rootProject.defaultTasks("clean", "publish")
@@ -35,7 +35,7 @@ repositories {
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     api("org.apache.commons:commons-math3:3.6.1")
     implementation("com.google.guava:guava:29.0-jre")
 }
