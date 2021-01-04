@@ -24,7 +24,7 @@ version = VERSION
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.38"
+    id("org.modelingvalue.gradle.corrector") version "0.3.40"
 }
 
 rootProject.defaultTasks("clean", "publish")
