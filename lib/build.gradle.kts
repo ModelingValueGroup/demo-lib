@@ -1,5 +1,5 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// (C) Copyright 2018-2020 Modeling Value Group B.V. (http://modelingvalue.org)                                        ~
+// (C) Copyright 2018-2021 Modeling Value Group B.V. (http://modelingvalue.org)                                        ~
 //                                                                                                                     ~
 // Licensed under the GNU Lesser General Public License v3.0 (the 'License'). You may not use this file except in      ~
 // compliance with the License. You may obtain a copy of the License at: https://choosealicense.com/licenses/lgpl-3.0  ~
@@ -15,36 +15,19 @@
 
 val VERSION: String by project
 val GROUP: String by project
-val COMPANY: String by project
 
-val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-val GITHUB_REF: String = rootProject.projectDir.toPath().resolve(".git/HEAD").toFile().readLines()[0].replaceFirst(Regex("^ref: "), "")
-val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
-var packageRepo: String
 
-if (CI && isMaster) {
-    group = GROUP
-    version = VERSION
-    packageRepo = "$COMPANY/$GROUP"
-} else {
-    group = "snapshots." + GROUP
-    version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
-    packageRepo = "$COMPANY/tmp-snapshots"
-}
-
-println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
-println("@@@@@@@@@@@        version=$version")
-println("@@@@@@@@@@@          group=$group")
-println("@@@@@@@@@@@    packageRepo=$packageRepo")
+group = GROUP
+version = VERSION
 
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.30"
+    id("org.modelingvalue.gradle.corrector") version "0.3.38"
 }
 
-rootProject.defaultTasks("clean", "build", "publish", "mvgTagger")
+rootProject.defaultTasks("clean", "publish")
 
 repositories {
     jcenter()
@@ -70,19 +53,6 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components["java"])
-        }
-    }
-    repositories {
-        if (CI) {
-            maven {
-                url = uri("https://maven.pkg.github.com/$packageRepo")
-                credentials {
-                    username = "" // can be anything but plugin requires it
-                    password = TOKEN
-                }
-            }
-        } else {
-            mavenLocal()
         }
     }
 }
