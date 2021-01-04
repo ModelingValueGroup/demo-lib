@@ -17,31 +17,15 @@ val VERSION: String by project
 val GROUP: String by project
 val COMPANY: String by project
 
-val CI: Boolean = "true".equals(System.getenv("CI"))
 val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-//val GITHUB_REF: String = rootProject.projectDir.toPath().resolve(".git/HEAD").toFile().readLines()[0].replaceFirst(Regex("^ref: "), "")
-//val isMaster: Boolean = GITHUB_REF.equals("refs/heads/master")
-var packageRepo: String
 
-//if (CI && isMaster) {
-    group = GROUP
-    version = VERSION
-    packageRepo = "$COMPANY/packages"
-//} else {
-//    group = "snapshots." + GROUP
-//    version = String.format("%08x", GITHUB_REF.hashCode()) + "-SNAPSHOT"
-//    packageRepo = "$COMPANY/packages-snapshots"
-//}
-
-//println("@@@@@@@@@@@     GITHUB_REF=$GITHUB_REF")
-println("@@@@@@@@@@@        version=$version")
-println("@@@@@@@@@@@          group=$group")
-println("@@@@@@@@@@@    packageRepo=$packageRepo")
+group = GROUP
+version = VERSION
 
 plugins {
     `java-library`
     `maven-publish`
-    id("org.modelingvalue.gradle.corrector") version "0.3.34"
+    id("org.modelingvalue.gradle.corrector") version "0.3.35"
 }
 
 rootProject.defaultTasks("clean", "build", "publish", "mvgTagger")
@@ -73,16 +57,12 @@ publishing {
         }
     }
     repositories {
-//        if (CI) {
-            maven {
-                url = uri("https://maven.pkg.github.com/$packageRepo")
-                credentials {
-                    username = "" // can be anything but plugin requires it
-                    password = TOKEN
-                }
+        maven {
+            url = uri("https://maven.pkg.github.com/$COMPANY/packages")
+            credentials {
+                username = "" // can be anything but plugin requires it
+                password = TOKEN
             }
-//        } else {
-//            mavenLocal()
-//        }
+        }
     }
 }
