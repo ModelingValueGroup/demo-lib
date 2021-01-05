@@ -13,43 +13,8 @@
 //     Arjan Kok, Carel Bast                                                                                           ~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-val VERSION: String by project
-val GROUP: String by project
-
-val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-
-group = GROUP
-version = VERSION
-
 plugins {
-    `java-library`
-    `maven-publish`
+    id("org.modelingvalue.gradle.corrector") version "0.3.45"
 }
 
-repositories {
-    jcenter()
-}
-
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
-    api("org.apache.commons:commons-math3:3.6.1")
-    implementation("com.google.guava:guava:29.0-jre")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("lib") {
-            from(components["java"])
-        }
-    }
-}
+defaultTasks("clean", "publish")
