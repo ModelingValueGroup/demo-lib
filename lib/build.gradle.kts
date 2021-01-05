@@ -26,8 +26,6 @@ plugins {
     `maven-publish`
 }
 
-rootProject.defaultTasks("clean", "publish")
-
 repositories {
     jcenter()
 }
