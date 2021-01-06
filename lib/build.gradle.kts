@@ -49,4 +49,3 @@ java {
     withSourcesJar()
 }
 
-
