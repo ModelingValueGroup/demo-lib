@@ -16,18 +16,12 @@
 val VERSION: String by project
 val GROUP: String by project
 
-val TOKEN: String = System.getenv("TOKEN") ?: "DRY"
-
 group = GROUP
 version = VERSION
 
 plugins {
     `java-library`
     `maven-publish`
-}
-
-repositories {
-    jcenter()
 }
 
 dependencies {
@@ -37,6 +31,15 @@ dependencies {
     implementation("com.google.guava:guava:29.0-jre")
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            from(components["java"])
+        }
+    }
+}
+
+/////////////////////////// boilerplate
 tasks.test {
     useJUnitPlatform()
 }
@@ -46,11 +49,4 @@ java {
     withSourcesJar()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("lib") {
-            from(components["java"])
-        }
-    }
-}
 
