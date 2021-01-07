@@ -20,8 +20,7 @@ group = GROUP
 version = VERSION
 
 plugins {
-    id("org.modelingvalue.gradle.corrector") version "0.3.51"
+    id("org.modelingvalue.gradle.corrector") version "0.3.52"
 }
 
 defaultTasks("clean", "publish")
-
