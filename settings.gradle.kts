@@ -16,3 +16,7 @@
 rootProject.name = "demo-lib"
 
 include("lib")
+
+plugins {
+    id("org.modelingvalue.gradle.corrector") version "0.3.53"
+}
