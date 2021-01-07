@@ -24,11 +24,6 @@ plugins {
     `maven-publish`
 }
 
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
-}
-
 publishing {
     publications {
         create<MavenPublication>("lib") {
@@ -36,4 +31,3 @@ publishing {
         }
     }
 }
-
