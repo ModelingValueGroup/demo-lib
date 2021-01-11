@@ -19,4 +19,5 @@ include("lib")
 
 plugins {
     id("org.modelingvalue.gradle.corrector") version "0.3.53"
+    id("com.gradle.enterprise") version ("3.5")
 }
