@@ -19,4 +19,4 @@ val GROUP: String by project
 group = GROUP
 version = VERSION
 
-defaultTasks("clean", "publish")
+defaultTasks("test", "publish")
