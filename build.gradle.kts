@@ -13,10 +13,8 @@
 //     Arjan Kok, Carel Bast                                                                                           ~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-val VERSION: String by project
-val GROUP: String by project
-
-group = GROUP
-version = VERSION
-
 defaultTasks("mvgCorrector", "test", "publish", "mvgTagger")
+
+plugins {
+    id("org.modelingvalue.gradle.corrector") version "0.3.56"
+}
