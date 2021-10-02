@@ -13,9 +13,5 @@ jobs:
       TOKEN: "${{secrets.ALLREP_TOKEN}}"
       CI: "true"
     steps:
-      - name: "a"
-        run: set |fgrep plugh
-      - name: "b"
-        run: set |fgrep xyzzy
-      - name: "c"
+      - name: "set"
         run: set
