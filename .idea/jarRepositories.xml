@@ -31,5 +31,15 @@
       <option name="name" value="MavenLocal" />
       <option name="url" value="file:$MAVEN_REPOSITORY$/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenRepo" />
+      <option name="name" value="MavenRepo" />
+      <option name="url" value="https://repo.maven.apache.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="demo-lib" />
+      <option name="name" value="demo-lib" />
+      <option name="url" value="https://maven.pkg.github.com/ModelingValueGroup/demo-lib" />
+    </remote-repository>
   </component>
 </project>
