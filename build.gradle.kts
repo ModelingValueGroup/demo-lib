@@ -16,5 +16,12 @@
 defaultTasks("mvgCorrector", "test", "publish", "mvgTagger")
 
 plugins {
-    id("org.modelingvalue.gradle.corrector") version "0.4.0"
+    id("org.modelingvalue.gradle.mvgplugin") version ("0.5.3")
+}
+publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            from(components["java"])
+        }
+    }
 }
